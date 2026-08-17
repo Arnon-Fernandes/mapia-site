@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enviar projeto — MAP.IA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1830'/%3E%3Cpath d='M14 44c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 34c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='2' opacity='.55' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%2335B6FF'/%3E%3C/svg%3E">
+<style>
+:root{--navy-900:#0A1830;--navy-800:#0E2240;--sky:#35B6FF;--sky-dark:#1E8FD0;--wa:#25D366;--wa-dark:#1DA851;--ink:#16202E;--ink-soft:#4A5A70;--bg:#F5F8FC;--line:#E1E9F2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--navy-900);padding:14px 0}
+header .wrap{display:flex;align-items:center;justify-content:space-between}
+header a{color:#fff;font-weight:800;font-size:1.2rem;text-decoration:none}
+header a span{color:var(--sky)}
+header .volta{font-size:.85rem;font-weight:500;color:#C9D7EA}
+main{background:#fff;border:1px solid var(--line);border-radius:14px;margin:32px auto 16px;padding:34px}
+h1{font-size:1.45rem;margin-bottom:4px}
+.sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:24px}
+label{display:block;font-weight:600;font-size:.88rem;margin:16px 0 5px}
+label small{font-weight:400;color:var(--ink-soft)}
+input[type=text],input[type=email],input[type=number],input[type=url],select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;font-size:.95rem;font-family:inherit;background:#FBFDFF}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sky)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.chk{display:flex;gap:9px;align-items:flex-start;margin:8px 0;font-size:.92rem}
+.chk input{margin-top:3px;accent-color:var(--sky-dark);width:16px;height:16px;flex:none}
+.prods{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;margin-top:4px}
+@media(max-width:560px){.prods{grid-template-columns:1fr}}
+.aviso{background:#FFF7E6;border:1px solid #F5D98B;border-radius:9px;padding:12px 14px;font-size:.85rem;color:#6B5200;margin-top:16px}
+.termos-box{background:#F2F8FE;border:1px solid #C9E4F8;border-radius:9px;padding:14px;margin-top:20px}
+button{width:100%;margin-top:20px;background:var(--wa);color:#fff;font-weight:700;font-size:1.05rem;padding:15px;border:none;border-radius:10px;cursor:pointer}
+button:hover{background:var(--wa-dark)}
+button:disabled{background:#B9C6D4;cursor:not-allowed}
+footer{text-align:center;color:var(--ink-soft);font-size:.82rem;padding:20px 0 40px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">MAP<span>.IA</span></a><a class="volta" href="index.html">← voltar</a></div></header>
+<div class="wrap"><main>
+<h1>📤 Enviar meu projeto</h1>
+<p class="sub">Preencha os dados do seu voo. Ao enviar, abrimos uma conversa no WhatsApp já com tudo organizado — você só confirma. Orçamento em minutos, entrega em até 48 h úteis.</p>
+
+<form id="f">
+  <div class="row">
+    <div><label>Nome / Empresa *</label><input type="text" id="nome" required></div>
+    <div><label>WhatsApp para contato *</label><input type="text" id="zap" placeholder="(DD) 9 XXXX-XXXX" required></div>
+  </div>
+  <div class="row">
+    <div><label>E-mail</label><input type="email" id="email"></div>
+    <div><label>CNPJ/CPF <small>(para NF)</small></label><input type="text" id="doc"></div>
+  </div>
+
+  <label>Link das fotos (Google Drive / WeTransfer) * <small>— compartilhe a pasta como "qualquer pessoa com o link"</small></label>
+  <input type="url" id="link" placeholder="https://drive.google.com/..." required>
+
+  <div class="row">
+    <div><label>Nº aproximado de fotos *</label><input type="number" id="fotos" min="1" required></div>
+    <div><label>Área aproximada (ha)</label><input type="number" id="area" step="0.1"></div>
+  </div>
+  <div class="row">
+    <div><label>Drone</label><input type="text" id="drone" placeholder="ex.: DJI Mini 4 Pro"></div>
+    <div><label>Altura de voo (m)</label><input type="number" id="altura"></div>
+  </div>
+  <div class="row">
+    <div><label>Overlap frontal/lateral <small>(mín. recomendado 75/65)</small></label><input type="text" id="overlap" placeholder="ex.: 80/70"></div>
+    <div><label>Tem pontos de controle (GCP)?</label><select id="gcp"><option>Não</option><option>Sim (envio o arquivo no WhatsApp)</option></select></div>
+  </div>
+
+  <label>Produtos desejados *</label>
+  <div class="prods">
+    <label class="chk"><input type="checkbox" class="prod" value="Ortomosaico" checked>Ortomosaico</label>
+    <label class="chk"><input type="checkbox" class="prod" value="MDT/MDS + curvas" checked>MDT/MDS + curvas de nível</label>
+    <label class="chk"><input type="checkbox" class="prod" value="Nuvem de pontos" checked>Nuvem de pontos</label>
+    <label class="chk"><input type="checkbox" class="prod" value="Modelo 3D">Modelo 3D texturizado</label>
+    <label class="chk"><input type="checkbox" class="prod" value="Calculo de volumes">Cálculo de volumes</label>
+    <label class="chk"><input type="checkbox" class="prod" value="Laudo com ART">Laudo técnico com ART</label>
+  </div>
+
+  <div class="row">
+    <div><label>Sistema de coordenadas</label><select id="crs"><option>SIRGAS 2000 / UTM (padrão)</option><option>Outro (explico no WhatsApp)</option></select></div>
+    <div><label>Você é...</label><select id="plano"><option>Cliente avulso</option><option>Assinante START</option><option>Assinante PRO</option><option>Quero assinar um plano</option></select></div>
+  </div>
+
+  <div class="aviso">📦 Limite de <strong>500 fotos por envio</strong>. Projeto maior? Envie mesmo assim e explique no WhatsApp — processamos áreas grandes sob demanda.</div>
+
+  <div class="termos-box">
+    <label class="chk" style="margin:0"><input type="checkbox" id="aceite">
+      <span>Li e aceito os <a href="termos.html" target="_blank">Termos de Serviço</a> — em especial: a qualidade do produto depende da qualidade do voo; brutos ficam 30 dias e produtos 90 dias; prazo conta após pagamento + arquivos completos. *</span></label>
+  </div>
+
+  <button type="submit" id="btn" disabled>💬 Enviar pelo WhatsApp</button>
+</form>
+</main></div>
+<footer>MAP.IA by Aeroclick · CNPJ 30.802.792/0001-89 · <a href="termos.html">Termos</a> · atendimento seg–sex 8h–18h</footer>
+
+<script>
+var WHATSAPP = "5575992224009";
+var aceite = document.getElementById("aceite"), btn = document.getElementById("btn");
+aceite.addEventListener("change", function(){ btn.disabled = !aceite.checked; });
+
+/* pre-seleciona o plano vindo de index.html?plano=START|PRO|AVULSO */
+var q = new URLSearchParams(location.search).get("plano");
+if (q === "START") document.getElementById("plano").value = "Quero assinar um plano";
+if (q === "PRO") document.getElementById("plano").value = "Quero assinar um plano";
+
+function v(id){ return (document.getElementById(id).value || "-").trim(); }
+document.getElementById("f").addEventListener("submit", function(e){
+  e.preventDefault();
+  var prods = Array.from(document.querySelectorAll(".prod:checked")).map(function(c){ return c.value; }).join(", ") || "-";
+  var plano = v("plano") + (q ? " (veio do plano " + q + ")" : "");
+  var msg = "*NOVO PROJETO — via processamento.tech*\n" +
+    "👤 Nome/Empresa: " + v("nome") + "\n" +
+    "📱 WhatsApp: " + v("zap") + "\n" +
+    "📧 E-mail: " + v("email") + "\n" +
+    "🧾 CNPJ/CPF: " + v("doc") + "\n" +
+    "🔗 Fotos: " + v("link") + "\n" +
+    "📷 Nº fotos: " + v("fotos") + " | Área: " + v("area") + " ha\n" +
+    "🚁 Drone: " + v("drone") + " | Altura: " + v("altura") + " m | Overlap: " + v("overlap") + "\n" +
+    "📍 GCP: " + v("gcp") + " | CRS: " + v("crs") + "\n" +
+    "📦 Produtos: " + prods + "\n" +
+    "💳 Tipo: " + plano + "\n" +
+    "✅ Aceitou os Termos de Serviço (v1.0) em " + new Date().toLocaleString("pt-BR");
+  window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
+});
+</script>
+</body>
+</html>
