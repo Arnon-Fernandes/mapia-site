@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAP.IA — Processamento de mapeamento com drone em até 48 h</title>
+<meta name="description" content="Você voa, a MAP.IA processa. Ortomosaico, MDT, curvas de nível, nuvem de pontos e 3D em até 48 h úteis. Preço em reais, Pix, e laudo com ART se precisar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1830'/%3E%3Cpath d='M14 44c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 34c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='2' opacity='.55' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%2335B6FF'/%3E%3C/svg%3E">
+<style>
+:root{
+  --navy-950:#060F20; --navy-900:#0A1830; --navy-800:#0E2240; --navy-700:#16305C;
+  --sky:#35B6FF; --sky-dark:#1E8FD0; --wa:#25D366; --wa-dark:#1DA851;
+  --ink:#16202E; --ink-soft:#4A5A70; --bg:#F5F8FC; --card:#FFFFFF; --line:#E1E9F2;
+  --amber:#FFB93D;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+img{max-width:100%}
+a{color:var(--sky-dark);text-decoration:none}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+/* header */
+header{background:var(--navy-900);position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(6,15,32,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:1.35rem;letter-spacing:.5px}
+.logo svg{flex:none}
+.logo .ia{color:var(--sky)}
+.logo small{display:block;font-weight:500;font-size:.62rem;letter-spacing:1.6px;color:#8FA6C6;text-transform:uppercase}
+nav.menu{display:flex;gap:22px;font-size:.95rem}
+nav.menu a{color:#C9D7EA}
+nav.menu a:hover{color:#fff}
+@media(max-width:760px){nav.menu{display:none}}
+/* hero */
+.hero{background:linear-gradient(160deg,var(--navy-950) 0%,var(--navy-800) 70%,var(--navy-700) 100%);color:#fff;padding:72px 0 84px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(115deg,transparent 0 90px,rgba(53,182,255,.05) 90px 92px);pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.badge{display:inline-block;background:var(--amber);color:#3A2A00;font-weight:700;font-size:.85rem;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:clamp(1.7rem,4.4vw,2.9rem);line-height:1.18;font-weight:800;max-width:760px}
+.hero h1 em{color:var(--sky);font-style:normal}
+.hero p.sub{margin:18px 0 30px;font-size:1.12rem;color:#C9D7EA;max-width:640px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;padding:14px 26px;border-radius:10px;font-size:1.02rem;transition:.15s;border:none;cursor:pointer}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{background:var(--wa-dark)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid #3D5A8C}
+.btn-ghost:hover{border-color:var(--sky);color:var(--sky)}
+.hero .mini{margin-top:26px;font-size:.9rem;color:#8FA6C6}
+/* sections */
+section{padding:64px 0}
+h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:8px}
+.kicker{color:var(--sky-dark);font-weight:700;font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase}
+p.lead{color:var(--ink-soft);max-width:680px;margin-bottom:34px}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+.card h3{font-size:1.06rem;margin-bottom:6px}
+.card p{font-size:.93rem;color:var(--ink-soft)}
+.card .ico{font-size:1.6rem;margin-bottom:10px;display:block}
+/* steps */
+.steps{counter-reset:s}
+.step{position:relative;padding-left:64px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:22px;width:36px;height:36px;border-radius:50%;background:var(--navy-800);color:var(--sky);font-weight:800;display:flex;align-items:center;justify-content:center}
+/* calculadora */
+.calc{background:var(--navy-900);color:#fff;border-radius:18px;padding:36px;display:grid;gap:26px;grid-template-columns:1fr 1fr}
+@media(max-width:760px){.calc{grid-template-columns:1fr}}
+.calc label{font-size:.9rem;color:#C9D7EA;display:block;margin-bottom:8px}
+.calc input[type=range]{width:100%;accent-color:var(--sky)}
+.calc .n{font-size:2rem;font-weight:800;color:var(--sky)}
+.price-box{background:var(--navy-800);border:1px solid var(--navy-700);border-radius:14px;padding:22px;text-align:center}
+.price-box .old{color:#8FA6C6;text-decoration:line-through;font-size:1rem}
+.price-box .now{font-size:2.4rem;font-weight:800;color:var(--wa)}
+.price-box .note{font-size:.85rem;color:#C9D7EA;margin-top:6px}
+/* planos */
+.plans{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.plan{position:relative;display:flex;flex-direction:column}
+.plan .tag{position:absolute;top:-12px;right:18px;background:var(--sky);color:#fff;font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:999px}
+.plan .preco{margin:10px 0 2px}
+.plan .preco .old{color:#96A6BA;text-decoration:line-through;font-size:.95rem;margin-right:8px}
+.plan .preco .now{font-size:1.9rem;font-weight:800}
+.plan .preco .mes{color:var(--ink-soft);font-size:.9rem}
+.plan ul{list-style:none;margin:14px 0 20px;font-size:.92rem;color:var(--ink-soft)}
+.plan li{padding:5px 0 5px 26px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:2px;color:var(--wa);font-weight:700}
+.plan .btn{margin-top:auto;justify-content:center;background:var(--navy-900);color:#fff}
+.plan .btn:hover{background:var(--navy-700)}
+.plan.soon{opacity:.55}
+/* garantias */
+.trust{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* vitrine */
+.vitrine-box{background:linear-gradient(145deg,var(--navy-800),var(--navy-950));border-radius:18px;color:#C9D7EA;padding:48px;text-align:center}
+/* footer */
+footer{background:var(--navy-950);color:#8FA6C6;padding:44px 0;font-size:.88rem}
+footer .wrap{display:grid;gap:10px}
+footer strong{color:#fff}
+.beta-note{font-size:.8rem;color:#8FA6C6;margin-top:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <svg width="38" height="38" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0E2240"/><path d="M14 44c6-2 10-10 18-10s12 8 18 10" stroke="#35B6FF" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M14 34c6-2 10-10 18-10s12 8 18 10" stroke="#35B6FF" stroke-width="2" opacity=".55" fill="none" stroke-linecap="round"/><circle cx="32" cy="20" r="5" fill="#35B6FF"/></svg>
+      <div>MAP<span class="ia">.IA</span><small>by Aeroclick · processamento.tech</small></div>
+    </div>
+    <nav class="menu">
+      <a href="#como">Como funciona</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#calculadora">Calculadora</a>
+      <a href="#planos">Planos</a>
+      <a href="termos.html">Termos</a>
+    </nav>
+    <a class="btn btn-wa" data-cta href="#contato" style="padding:10px 18px;font-size:.92rem">Falar agora</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="badge">🚀 BETA DE LANÇAMENTO — 70% OFF em tudo</span>
+    <h1>Processamento de levantamentos de drone em até 48 h — <em>você voa, a gente processa.</em></h1>
+    <p class="sub">Ortomosaico, MDT/MDS, curvas de nível, nuvem de pontos, 3D e volumes — sem precisar de um PC de R$ 15 mil. Preço em reais, pagamento por Pix e, se precisar, <strong>laudo assinado com ART</strong>.</p>
+    <div class="cta-row">
+      <a class="btn btn-wa" data-cta href="#contato">💬 Enviar meu projeto</a>
+      <a class="btn btn-ghost" href="#calculadora">Calcular meu preço</a>
+    </div>
+    <p class="mini">Primeiro mapa <strong>GRÁTIS</strong> até 150 fotos · até 500 fotos por envio · SLA 48 h úteis · Salvador/BA</p>
+  </div>
+</div>
+
+<section id="quem">
+  <div class="wrap">
+    <span class="kicker">Para quem é</span>
+    <h2>Feito para quem voa — não para quem monta servidor</h2>
+    <p class="lead">Pilotos de drone e empresas de topografia, agro, mineração, meio ambiente e obras que precisam de produtos cartográficos profissionais sem investir em máquina de fotogrametria.</p>
+    <div class="grid g3">
+      <div class="card"><span class="ico">🛩️</span><h3>Operador de drone</h3><p>Processar 500 fotos exige GPU e RAM que custam caro. Você voa e entrega mais; a gente processa. E prometemos por escrito: <strong>não disputamos o seu cliente final</strong>.</p></div>
+      <div class="card"><span class="ico">📐</span><h3>Topografia e obras</h3><p>MDT, curvas de nível e ortomosaico em SIRGAS 2000/UTM, prontos para o seu CAD/GIS. Com GCPs, precisão centimétrica documentada.</p></div>
+      <div class="card"><span class="ico">🌱</span><h3>Agro, mineração e ambiental</h3><p>Acompanhamento de lavoura, cálculo de volume de pilhas e figuras para estudos ambientais — com especialista de verdade no atendimento.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="produtos" class="trust">
+  <div class="wrap">
+    <span class="kicker">O que você recebe</span>
+    <h2>Produtos profissionais, formatos abertos</h2>
+    <p class="lead">Arquivos padrão de mercado (GeoTIFF, LAS/LAZ, DXF/SHP, OBJ/GLB) — sem aprisionamento em plataforma.</p>
+    <div class="grid g3">
+      <div class="card"><span class="ico">🗺️</span><h3>Ortomosaico</h3><p>GeoTIFF georreferenciado de alta resolução.</p></div>
+      <div class="card"><span class="ico">⛰️</span><h3>MDS/MDT + curvas de nível</h3><p>Modelos de terreno e curvas em DXF/SHP.</p></div>
+      <div class="card"><span class="ico">☁️</span><h3>Nuvem de pontos</h3><p>LAS/LAZ densa e classificável.</p></div>
+      <div class="card"><span class="ico">🧊</span><h3>Modelo 3D texturizado</h3><p>OBJ/GLB para apresentações e as-built.</p></div>
+      <div class="card"><span class="ico">📦</span><h3>Cálculo de volumes</h3><p>Pilhas e cavas com relatório de cubagem.</p></div>
+      <div class="card" style="border-color:var(--sky);box-shadow:0 0 0 1px var(--sky)"><span class="ico">📜</span><h3>Laudo técnico com ART</h3><p><strong>Exclusivo MAP.IA:</strong> relatório assinado por responsável técnico registrado. Nenhuma plataforma internacional oferece isso.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="como">
+  <div class="wrap">
+    <span class="kicker">Como funciona</span>
+    <h2>Três passos, zero complicação</h2>
+    <div class="grid g3 steps" style="margin-top:30px">
+      <div class="card step"><h3>Envie suas fotos</h3><p>Mande o link do seu voo (Drive/WeTransfer) pelo WhatsApp com as informações básicas do projeto.</p></div>
+      <div class="card step"><h3>Confirmamos preço e prazo</h3><p>Validamos seus dados (GPS, overlap, GCPs), enviamos o orçamento e o Pix. Sem surpresa: o preço é tabelado.</p></div>
+      <div class="card step"><h3>Receba os produtos</h3><p>Em até 48 h úteis você recebe o link com todos os arquivos + relatório técnico do processamento.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="calculadora">
+  <div class="wrap">
+    <span class="kicker">Calculadora</span>
+    <h2>Quanto custa o seu projeto?</h2>
+    <p class="lead">Arraste para o número de fotos do seu voo. Sem pegadinha: é o preço final.</p>
+    <div class="calc">
+      <div>
+        <label for="fotos">Número de fotos: <span class="n" id="nfotos">300</span></label>
+        <input type="range" id="fotos" min="50" max="500" step="10" value="300">
+        <p style="margin-top:18px;font-size:.9rem;color:#C9D7EA">✅ Até 150 fotos: seu <strong>primeiro mapa é grátis</strong>.<br>📦 Acima de 500 fotos: <a href="#contato" style="color:var(--sky)">fale com a gente</a> — processamos áreas grandes sob demanda.</p>
+      </div>
+      <div class="price-box">
+        <div id="preco-livre">
+          <div class="old" id="preco-cheio">R$ 360</div>
+          <div class="now" id="preco-beta">R$ 108</div>
+          <div class="note">no beta (70% OFF) · inclui ortomosaico + MDT/MDS + curvas + nuvem de pontos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" class="trust">
+  <div class="wrap">
+    <span class="kicker">Planos e preços</span>
+    <h2>Preços de beta — por tempo limitado</h2>
+    <p class="lead">Avulso para quem usa de vez em quando; assinatura para quem voa toda semana. Créditos valem 90 dias.</p>
+    <div class="grid plans">
+      <div class="card plan">
+        <h3>Avulso</h3>
+        <div class="preco"><span class="old">R$ 1,20</span><span class="now" data-preco-avulso>R$ 0,36</span><span class="mes">/foto</span></div>
+        <ul>
+          <li>Mínimo <span data-min-job>R$ 45</span>/job</li>
+          <li>Todos os produtos-base inclusos</li>
+          <li>Pagamento por Pix</li>
+          <li>SLA 48 h úteis</li>
+        </ul>
+        <a class="btn" data-cta href="#contato">Enviar projeto</a>
+      </div>
+      <div class="card plan">
+        <span class="tag">Mais popular</span>
+        <h3>START</h3>
+        <div class="preco"><span class="old">R$ 249</span><span class="now" data-preco-start>R$ 75</span><span class="mes">/mês</span></div>
+        <ul>
+          <li>1.500 fotos/mês</li>
+          <li>Fila padrão · SLA 48 h úteis</li>
+          <li>Relatório técnico incluso</li>
+          <li>Excedente <span data-excedente>R$ 0,24</span>/foto</li>
+        </ul>
+        <a class="btn" data-cta href="#contato">Assinar START</a>
+      </div>
+      <div class="card plan">
+        <h3>PRO</h3>
+        <div class="preco"><span class="old">R$ 490</span><span class="now" data-preco-pro>R$ 147</span><span class="mes">/mês</span></div>
+        <ul>
+          <li>4.000 fotos/mês</li>
+          <li><strong>Prioridade na fila</strong></li>
+          <li>Relatório white-label (sua logo)</li>
+          <li>Excedente <span data-excedente>R$ 0,24</span>/foto</li>
+        </ul>
+        <a class="btn" data-cta href="#contato">Assinar PRO</a>
+      </div>
+      <div class="card plan soon">
+        <h3>HEAVY</h3>
+        <div class="preco"><span class="now">Em breve</span></div>
+        <ul>
+          <li>10.000 fotos/mês</li>
+          <li>SLA 24 h · suporte direto</li>
+          <li>Retenção de dados 12 meses</li>
+        </ul>
+        <a class="btn" href="#contato" style="pointer-events:none">Lista de espera</a>
+      </div>
+    </div>
+    <p class="beta-note">Preços do beta de lançamento (70% de desconto sobre a tabela). Laudo com ART (R$ 400–1.500) e volumetria (+R$ 90/pilha) sob orçamento. Franquias mensais não cumulativas.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Compromissos</span>
+    <h2>Por que confiar na MAP.IA</h2>
+    <div class="grid g3" style="margin-top:26px">
+      <div class="card"><span class="ico">🛡️</span><h3>Garantia de verdade</h3><p>Falhou por culpa nossa? Reprocessamos sem custo ou devolvemos seu dinheiro. Simples assim.</p></div>
+      <div class="card"><span class="ico">🤝</span><h3>Não competimos com você</h3><p>Operador de drone: garantimos por escrito que não abordamos o seu cliente final na sua região.</p></div>
+      <div class="card"><span class="ico">🔒</span><h3>Seus dados protegidos</h3><p>LGPD: brutos excluídos em 30 dias, produtos disponíveis por 90. Seus arquivos são só seus.</p></div>
+      <div class="card"><span class="ico">🇧🇷</span><h3>Padrão brasileiro</h3><p>SIRGAS 2000/UTM, atendimento em português por especialista, preço em reais com Pix.</p></div>
+      <div class="card"><span class="ico">👨‍🔬</span><h3>Especialista de verdade</h3><p>Atendimento com Técnico em Geologia registrado — não é chatbot de plataforma gringa.</p></div>
+      <div class="card"><span class="ico">⏱️</span><h3>Fila transparente</h3><p>SLA honesto de 48 h úteis e você sabe a posição do seu job na fila.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="vitrine">
+  <div class="wrap">
+    <span class="kicker">Projeto-vitrine</span>
+    <h2>Veja com seus próprios olhos</h2>
+    <div class="vitrine-box" style="margin-top:26px">
+      <p style="font-size:1.1rem">🚁 <strong style="color:#fff">Fazenda Ilha Bela — Simões Filho/BA</strong></p>
+      <p style="margin-top:8px">491 fotos · ortomosaico + MDT + curvas de nível · em processamento — o resultado navegável será publicado aqui em breve.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="trust">
+  <div class="wrap" style="text-align:center">
+    <h2>Pronto para processar seu primeiro voo?</h2>
+    <p class="lead" style="margin:10px auto 28px">Primeiro mapa grátis até 150 fotos. Fale com a gente e receba o orçamento em minutos.</p>
+    <a class="btn btn-wa" data-cta href="#" style="font-size:1.15rem;padding:16px 34px">💬 Chamar no WhatsApp</a>
+    <p class="beta-note" style="margin-top:14px">Atendimento seg–sex, 8h–18h (Brasília) · <a href="mailto:arnongeo@gmail.com">arnongeo@gmail.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><strong>MAP.IA by Aeroclick</strong> · processamento.tech</div>
+    <div>Aeroclick — Arnon de Oliveira Fernandes · CNPJ 30.802.792/0001-89 · Salvador/BA</div>
+    <div>Responsável Técnico: Arnon de Oliveira Fernandes — Técnico em Geologia, RNP 05292828521</div>
+    <div><a href="termos.html" style="color:#C9D7EA">Termos de Serviço</a> · Projetos de até 500 fotos por envio — acima disso, fale com a gente.</div>
+  </div>
+</footer>
+
+<script>
+/* ===== CONFIG ===== */
+var BETA_FACTOR = 0.30;           // 0.30 = beta a 30% da tabela (70% OFF). Trocar p/ 0.70 se decisão mudar.
+var WHATSAPP = "55XXXXXXXXXXX";   // TODO ARNON: numero com DDI+DDD, so digitos. Ex.: 5571991234567
+var PRECO_FOTO = 1.20, MIN_JOB = 150, GRATIS_ATE = 150;
+
+/* CTAs: usa WhatsApp se o numero estiver configurado; senao cai no e-mail */
+var waOk = WHATSAPP.indexOf("X") === -1;
+var msg = encodeURIComponent("Olá! Quero processar um levantamento de drone com a MAP.IA.");
+document.querySelectorAll("[data-cta]").forEach(function(a){
+  a.href = waOk ? "https://wa.me/" + WHATSAPP + "?text=" + msg
+                : "mailto:arnongeo@gmail.com?subject=" + encodeURIComponent("Orçamento MAP.IA");
+});
+
+/* Calculadora */
+var slider = document.getElementById("fotos");
+function br(v){ return "R$ " + v.toLocaleString("pt-BR", {maximumFractionDigits: 0}); }
+function calc(){
+  var n = parseInt(slider.value, 10);
+  document.getElementById("nfotos").textContent = n;
+  var cheio = Math.max(MIN_JOB, n * PRECO_FOTO);
+  var beta = Math.max(MIN_JOB * BETA_FACTOR, cheio * BETA_FACTOR);
+  var box = document.getElementById("preco-livre");
+  if (n <= GRATIS_ATE) {
+    box.innerHTML = '<div class="now">GRÁTIS</div><div class="note">seu primeiro mapa até ' + GRATIS_ATE + ' fotos é por nossa conta 🎁<br>(depois do primeiro: ' + br(Math.max(MIN_JOB*BETA_FACTOR, n*PRECO_FOTO*BETA_FACTOR)) + ' no beta)</div>';
+  } else {
+    box.innerHTML = '<div class="old">' + br(cheio) + '</div><div class="now">' + br(beta) + '</div><div class="note">no beta (70% OFF) · inclui ortomosaico + MDT/MDS + curvas + nuvem de pontos</div>';
+  }
+}
+slider.addEventListener("input", calc); calc();
+
+/* Precos dos planos derivados da tabela cheia */
+function preco(el, cheio, dec){
+  document.querySelectorAll(el).forEach(function(e){
+    var v = cheio * BETA_FACTOR;
+    e.textContent = "R$ " + (dec ? v.toFixed(2).replace(".", ",") : Math.round(v));
+  });
+}
+preco("[data-preco-avulso]", 1.20, true);
+preco("[data-min-job]", 150, false);
+preco("[data-preco-start]", 249, false);
+preco("[data-preco-pro]", 490, false);
+preco("[data-excedente]", 0.80, true);
+</script>
+</body>
+</html>
