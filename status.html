@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Status do projeto — MAP.IA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1830'/%3E%3Cpath d='M14 44c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 34c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='2' opacity='.55' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%2335B6FF'/%3E%3C/svg%3E">
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;background:#0A1830;color:#fff;margin:0;
+display:flex;min-height:100vh;align-items:center;justify-content:center}
+.card{background:#0E2240;padding:36px;border-radius:16px;max-width:520px;width:92%}
+h1{font-size:1.4rem;margin:0 0 4px}h1 span{color:#35B6FF}
+p{color:#C9D7EA;font-size:.95rem;line-height:1.5}
+input{width:100%;border-radius:10px;border:2px solid #16305C;background:#081227;color:#fff;
+font-size:1rem;padding:13px;box-sizing:border-box;margin-top:8px}
+button{margin-top:12px;width:100%;background:#35B6FF;color:#06121F;border:none;padding:14px;
+border-radius:10px;font-size:1.02rem;font-weight:700;cursor:pointer}
+button:hover{background:#5AC4FF}
+.res{margin-top:20px;background:#132B52;border-radius:12px;padding:18px 20px;display:none}
+.res .fase{font-size:1.25rem;font-weight:700;color:#35B6FF}
+.res .det{color:#C9D7EA;margin-top:4px}
+.res .att{color:#8FA6C6;font-size:.82rem;margin-top:10px}
+.erro{color:#FFB93D;margin-top:14px;display:none}
+.rodape{margin-top:22px;color:#8FA6C6;font-size:.8rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>MAP<span>.IA</span> · Status do seu projeto</h1>
+<p>Digite o código do projeto (está nos nossos e-mails, ex.:
+<b>20260817-GEOMAPP-20HA-TOPO</b>) e acompanhe em que etapa ele está.</p>
+<input id="job" placeholder="Código do projeto" autofocus>
+<button onclick="consulta()">Consultar</button>
+<div class="res" id="res">
+  <div class="fase" id="fase"></div>
+  <div class="det" id="det"></div>
+  <div class="att" id="att"></div>
+</div>
+<div class="erro" id="erro">Projeto não encontrado — confira o código ou chame no
+<a href="https://wa.me/5575992224009" style="color:#35B6FF">WhatsApp</a>.</div>
+<div class="rodape">AeroClick · CNPJ 30.802.792/0001-89 · Salvador/BA</div>
+</div>
+<script>
+async function consulta(){
+  const id = document.getElementById('job').value.trim().toUpperCase();
+  const res = document.getElementById('res'), erro = document.getElementById('erro');
+  res.style.display = 'none'; erro.style.display = 'none';
+  if (!id) return;
+  try {
+    const r = await fetch('status/' + encodeURIComponent(id) + '.json', {cache: 'no-store'});
+    if (!r.ok) throw 0;
+    const d = await r.json();
+    document.getElementById('fase').textContent = d.fase;
+    document.getElementById('det').textContent = d.detalhe;
+    document.getElementById('att').textContent = 'Cliente: ' + d.cliente + ' · Atualizado em ' + d.atualizado;
+    res.style.display = 'block';
+  } catch (e) { erro.style.display = 'block'; }
+}
+document.getElementById('job').addEventListener('keydown', e => { if (e.key === 'Enter') consulta(); });
+const q = new URLSearchParams(location.search).get('job');
+if (q) { document.getElementById('job').value = q; consulta(); }
+</script>
+</body>
+</html>
