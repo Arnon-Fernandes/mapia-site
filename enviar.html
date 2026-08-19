@@ -75,12 +75,15 @@ footer{text-align:center;color:var(--ink-soft);font-size:.82rem;padding:20px 0 4
     <label class="chk"><input type="checkbox" class="prod" value="Nuvem de pontos" checked>Nuvem de pontos</label>
     <label class="chk"><input type="checkbox" class="prod" value="Modelo 3D">Modelo 3D texturizado</label>
     <label class="chk"><input type="checkbox" class="prod" value="Calculo de volumes">Cálculo de volumes</label>
-    <label class="chk"><input type="checkbox" class="prod" value="Laudo com ART">Laudo técnico com ART</label>
   </div>
 
   <div class="row">
     <div><label>Sistema de coordenadas</label><select id="crs"><option>SIRGAS 2000 / UTM (padrão)</option><option>Outro (explico no WhatsApp)</option></select></div>
     <div><label>Você é...</label><select id="plano"><option>Cliente avulso</option><option>Assinante START</option><option>Assinante PRO</option><option>Quero assinar um plano</option></select></div>
+  </div>
+  <div class="row">
+    <div><label>Como nos conheceu?</label><select id="origem"><option>Google</option><option>Instagram</option><option>YouTube</option><option>Indicação de amigo/colega</option><option>Grupo de pilotos</option><option>Outro</option></select></div>
+    <div></div>
   </div>
 
   <div class="aviso">📦 Limite de <strong>500 fotos por envio</strong>. Projeto maior? Envie mesmo assim e explique no WhatsApp — processamos áreas grandes sob demanda.</div>
@@ -121,6 +124,7 @@ document.getElementById("f").addEventListener("submit", function(e){
     "📍 GCP: " + v("gcp") + " | CRS: " + v("crs") + "\n" +
     "📦 Produtos: " + prods + "\n" +
     "💳 Tipo: " + plano + "\n" +
+    "📣 Origem: " + v("origem") + "\n" +
     "✅ Aceitou os Termos de Serviço (v1.0) em " + new Date().toLocaleString("pt-BR");
   window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
 });
