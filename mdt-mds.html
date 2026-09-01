@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDT vs MDS: qual a diferença e qual usar? Curvas de Nível sem Árvores | MAP.IA</title>
+<meta name="description" content="Entenda a diferença entre MDT (Modelo Digital de Terreno) e MDS (Modelo Digital de Superfície) no mapeamento com drone, por que curvas de nível sobre árvores arruínam projetos, e como a classificação por IA remove vegetação e construções do terreno.">
+<link rel="canonical" href="https://processamento.tech/mdt-mds.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MDT vs MDS: qual a diferença e qual usar?">
+<meta property="og:description" content="Por que curvas de nível sobre árvores arruínam projetos — e como a IA limpa o terreno do seu voo de drone.">
+<meta property="og:url" content="https://processamento.tech/mdt-mds.html">
+<meta property="og:image" content="https://processamento.tech/vitrine-ilhabela.jpg">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1830'/%3E%3Cpath d='M14 44c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 34c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='2' opacity='.55' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%2335B6FF'/%3E%3C/svg%3E">
+<style>
+:root{--navy-950:#060F20;--navy-900:#0A1830;--navy-700:#16305C;--sky:#35B6FF;--sky-dark:#1E8FD0;--wa:#25D366;--ink:#16202E;--ink-soft:#4A5A70;--bg:#F5F8FC;--card:#FFFFFF;--line:#E1E9F2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Segoe UI",system-ui,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+a{color:var(--sky-dark);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--navy-900);padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;max-width:860px}
+header a{color:#fff;font-weight:800;font-size:1.2rem}
+header a span{color:var(--sky)}
+header .volta{font-weight:400;font-size:.9rem;color:#C9D7EA}
+.hero{background:linear-gradient(160deg,var(--navy-950),var(--navy-700));color:#fff;padding:48px 0}
+.hero h1{font-size:clamp(1.4rem,3.4vw,2.1rem);font-weight:800;line-height:1.25}
+.hero p{margin-top:12px;color:#C9D7EA}
+article{padding:40px 0 20px}
+article h2{font-size:1.35rem;font-weight:800;margin:30px 0 10px}
+article p{margin-bottom:14px;color:#2A3648}
+article ul{margin:0 0 14px 22px;color:#2A3648}
+article li{margin-bottom:6px}
+.destaque{background:#fff;border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0;color:var(--ink-soft)}
+.cta{background:var(--navy-900);color:#fff;border-radius:16px;padding:30px;text-align:center;margin:36px 0}
+.cta .btn{display:inline-block;background:var(--wa);color:#fff;font-weight:700;padding:14px 28px;border-radius:10px;margin-top:12px}
+footer{background:var(--navy-950);color:#8FA6C6;padding:34px 0;font-size:.85rem;text-align:center}
+footer strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:.94rem}
+th{background:var(--navy-900);color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">MAP<span>.IA</span></a><a class="volta" href="index.html">← página inicial</a></div></header>
+
+<div class="hero"><div class="wrap">
+<h1>MDT vs MDS: qual a diferença — e por que curvas de nível sobre árvores arruínam o seu projeto</h1>
+<p>Guia direto de quem processa voos todos os dias: o que cada modelo representa, quando usar cada um e como a IA remove vegetação e construções do terreno.</p>
+</div></div>
+
+<article><div class="wrap">
+<h2>A diferença em uma frase</h2>
+<p>O <strong>MDS (Modelo Digital de Superfície)</strong> representa tudo o que o drone enxergou de cima: copas de árvores, telhados, carros, pilhas de material. O <strong>MDT (Modelo Digital de Terreno)</strong> representa apenas o chão — o terreno nu, sem nada em cima.</p>
+
+<table>
+<tr><th>Uso</th><th>Modelo certo</th></tr>
+<tr><td>Curvas de nível, projeto de terraplenagem, drenagem</td><td><strong>MDT</strong></td></tr>
+<tr><td>Volume de pilhas e estoques</td><td>MDS (a pilha É superfície)</td></tr>
+<tr><td>Altura de vegetação/edificações (MDS − MDT)</td><td>os dois</td></tr>
+<tr><td>Estudo de sombreamento, linha de visada, antenas</td><td>MDS</td></tr>
+</table>
+
+<h2>O erro clássico: curva de nível em cima de árvore</h2>
+<p>Todo software de fotogrametria gera curvas a partir de um modelo de elevação. Se as curvas forem extraídas do MDS (ou de um MDT mal filtrado), cada árvore vira uma "colina" de 10 metros e cada casa vira um "morro" — e o projeto de terraplenagem, o cálculo de corte/aterro ou o estudo de drenagem que usar essas curvas herda erros grosseiros.</p>
+<div class="destaque">Sinal de alerta: se as curvas de nível do seu mapeamento formam "ilhas" circulares onde existem árvores na ortofoto, o terreno não foi filtrado — o produto está tecnicamente errado para uso topográfico.</div>
+
+<h2>Como a IA limpa o terreno (o que fazemos aqui)</h2>
+<p>No MAP.IA, a nuvem de pontos passa por <strong>classificação semântica por inteligência artificial</strong>: cada ponto é rotulado como solo, vegetação, edificação ou veículo. Só os pontos de solo entram no MDT — árvores, carros e construções são removidos, e as áreas encobertas são interpoladas a partir do terreno visível ao redor. Depois, as curvas são extraídas do MDT limpo e <strong>suavizadas</strong> (sem serrilhado), entregues em DXF (CAD) e SHP (QGIS/ArcGIS) com cota em cada curva.</p>
+
+<h2>Os limites honestos da técnica</h2>
+<ul>
+<li><strong>Mata fechada:</strong> a fotogrametria não enxerga o chão sob dossel contínuo — ali o MDT é interpolação. Para topografia sob floresta, o instrumento certo é LiDAR ou levantamento em campo.</li>
+<li><strong>Água:</strong> espelhos d'água não geram pontos confiáveis; curvas sobre açudes/lagos são aproximações da borda.</li>
+<li><strong>Precisão absoluta:</strong> sem pontos de controle, as cotas valem de forma relativa (desníveis). Com GCPs, a precisão vira centimétrica e documentável.</li>
+</ul>
+
+<div class="cta">
+<h2 style="margin:0">Precisa de MDT limpo e curvas suaves do seu voo?</h2>
+<p style="color:#C9D7EA;margin-top:8px">Envie as fotos e receba em até 48h — MDT filtrado por IA, curvas em DXF/SHP, tudo em SIRGAS 2000. Primeiro mapa grátis até 150 fotos.</p>
+<a class="btn" href="enviar.html">📤 Enviar meu projeto</a>
+</div>
+</div></article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Qual a diferença entre MDT e MDS?", "acceptedAnswer": {"@type": "Answer", "text": "O MDS (Modelo Digital de Superfície) inclui tudo que o drone enxergou: árvores, telhados, carros. O MDT (Modelo Digital de Terreno) representa só o chão. Curvas de nível e projetos de terraplenagem devem usar o MDT; volume de pilhas usa o MDS."}},
+    {"@type": "Question", "name": "Por que minhas curvas de nível têm ilhas circulares nas árvores?", "acceptedAnswer": {"@type": "Answer", "text": "Porque foram extraídas de um modelo não filtrado: cada árvore virou uma colina. O correto é classificar a nuvem de pontos (por IA), remover vegetação e construções e extrair as curvas do MDT limpo."}},
+    {"@type": "Question", "name": "Drone enxerga o terreno embaixo de mata fechada?", "acceptedAnswer": {"@type": "Answer", "text": "Não — fotogrametria não atravessa dossel contínuo; nessas áreas o MDT é interpolado. Para topografia sob floresta, use LiDAR ou levantamento em campo."}}
+  ]
+}
+</script>
+<footer><div class="wrap"><strong>AeroClick</strong> · CNPJ 30.802.792/0001-89 · Salvador/BA<br><a href="termos.html" style="color:#C9D7EA">Termos de Serviço</a> · <a href="index.html" style="color:#C9D7EA">processamento.tech</a></div></footer>
+</body>
+</html>

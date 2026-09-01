@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como Voar para Fotogrametria: Overlap, Altura e Checklist do Voo Perfeito | MAP.IA</title>
+<meta name="description" content="Checklist prático para planejar voo de drone para mapeamento: sobreposição 75/65, altura de voo por GSD, velocidade, luz, e os erros que arruínam o processamento. Vale para toda linha DJI, do Mini ao Mavic.">
+<link rel="canonical" href="https://processamento.tech/voo-fotogrametria.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Como voar para fotogrametria: o checklist do voo perfeito">
+<meta property="og:description" content="Overlap 75/65, altura por GSD, e os erros que arruínam o processamento — checklist direto de quem processa voos todos os dias.">
+<meta property="og:url" content="https://processamento.tech/voo-fotogrametria.html">
+<meta property="og:image" content="https://processamento.tech/vitrine-ilhabela.jpg">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1830'/%3E%3Cpath d='M14 44c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 34c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='2' opacity='.55' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%2335B6FF'/%3E%3C/svg%3E">
+<style>
+:root{--navy-950:#060F20;--navy-900:#0A1830;--navy-700:#16305C;--sky:#35B6FF;--sky-dark:#1E8FD0;--wa:#25D366;--ink:#16202E;--ink-soft:#4A5A70;--bg:#F5F8FC;--card:#FFFFFF;--line:#E1E9F2;--amber:#FFB93D}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Segoe UI",system-ui,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+a{color:var(--sky-dark);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--navy-900);padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;max-width:860px}
+header a{color:#fff;font-weight:800;font-size:1.2rem}
+header a span{color:var(--sky)}
+header .volta{font-weight:400;font-size:.9rem;color:#C9D7EA}
+.hero{background:linear-gradient(160deg,var(--navy-950),var(--navy-700));color:#fff;padding:48px 0}
+.hero h1{font-size:clamp(1.4rem,3.4vw,2.1rem);font-weight:800;line-height:1.25}
+.hero p{margin-top:12px;color:#C9D7EA}
+article{padding:40px 0 20px}
+article h2{font-size:1.35rem;font-weight:800;margin:30px 0 10px}
+article p{margin-bottom:14px;color:#2A3648}
+article ul,article ol{margin:0 0 14px 22px;color:#2A3648}
+article li{margin-bottom:7px}
+.destaque{background:#fff;border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0;color:var(--ink-soft)}
+.cta{background:var(--navy-900);color:#fff;border-radius:16px;padding:30px;text-align:center;margin:36px 0}
+.cta .btn{display:inline-block;background:var(--wa);color:#fff;font-weight:700;padding:14px 28px;border-radius:10px;margin-top:12px}
+footer{background:var(--navy-950);color:#8FA6C6;padding:34px 0;font-size:.85rem;text-align:center}
+footer strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:.94rem}
+th{background:var(--navy-900);color:#fff}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">MAP<span>.IA</span></a><a class="volta" href="index.html">← página inicial</a></div></header>
+
+<div class="hero"><div class="wrap">
+<h1>Como voar para fotogrametria: o checklist do voo que processa perfeito</h1>
+<p>Escrito por quem recebe voos de todo tipo para processar: o que separa um mapeamento profissional de um retrabalho — antes de decolar.</p>
+</div></div>
+
+<article><div class="wrap">
+<h2>1. Sobreposição (overlap): a regra 75/65</h2>
+<p>É o fator nº 1 de sucesso. Configure <strong>75% de sobreposição frontal</strong> (entre fotos na mesma linha) e <strong>65% lateral</strong> (entre linhas de voo). Área com vegetação ou relevo forte? Suba para 80/70 — sobreposição de sobra custa minutos de voo; sobreposição de menos custa o projeto inteiro.</p>
+
+<h2>2. Altura de voo: pense em GSD, não em metros</h2>
+<p>O GSD (tamanho do pixel no chão) define o nível de detalhe do produto:</p>
+<table>
+<tr><th>Altura (câmera ~12-20 MP)</th><th>GSD aproximado</th><th>Serve para</th></tr>
+<tr><td>60-80 m</td><td>2-3 cm/px</td><td>plantas urbanas, obras, detalhes finos</td></tr>
+<tr><td>100-120 m</td><td>3-5 cm/px</td><td>topografia rural, fazendas, mineração</td></tr>
+<tr><td>>120 m</td><td>>5 cm/px</td><td>grandes áreas, menor detalhe (verificar regras de voo)</td></tr>
+</table>
+<p>Voe a altura <strong>constante</strong>: em terreno com grande desnível, use "terrain follow" quando disponível.</p>
+
+<h2>3. Câmera e velocidade</h2>
+<ul>
+<li>Câmera a <strong>nadir</strong> (90°, apontada para baixo) para mapeamento padrão.</li>
+<li>Velocidade moderada (5-8 m/s): rápida demais borra foto em pouca luz.</li>
+<li>Foco fixo/infinito e ISO baixo; deixe o obturador compensar.</li>
+</ul>
+
+<h2>4. Luz e clima</h2>
+<ul>
+<li>Melhor janela: <strong>meio da manhã ou meio da tarde</strong> em dia claro OU dia totalmente nublado (luz difusa = sem sombras duras).</li>
+<li>Evite o sol a pino em área urbana (sombras verticais) e o fim de tarde (sombras compridas "sujam" o MDT).</li>
+<li>Vento forte = fotos tortas e linhas irregulares; adie se puder.</li>
+</ul>
+
+<h2>5. Os 5 erros que mais arruínam processamentos (visto daqui de dentro)</h2>
+<ol>
+<li><strong>Overlap baixo demais</strong> — o modelo não fecha, aparecem buracos.</li>
+<li><strong>Misturar alturas/dias no mesmo voo</strong> sem planejamento — cores e escalas brigam.</li>
+<li><strong>Fotos com vídeo no meio</strong> — envie só os JPGs do mapeamento.</li>
+<li><strong>Bordas sem margem</strong> — voe 20-30% além do limite da área de interesse: a borda do voo sempre tem menos sobreposição.</li>
+<li><strong>GPS desligado/sem sinal</strong> — sem coordenadas nas fotos não há georreferenciamento.</li>
+</ol>
+
+<div class="destaque"><strong>Quer precisão topográfica de verdade?</strong> Adicione 4-6 pontos de controle (GCPs) medidos com GNSS RTK, com alvos visíveis do ar, espalhados pela área (não agrupados). Com GCPs seu mapeamento sai com precisão centimétrica documentada — sem eles, a precisão é a do GPS do drone (métrica).</div>
+
+<h2>Checklist final antes de decolar</h2>
+<ul>
+<li>☑ Overlap 75/65 (80/70 em mata/relevo)</li>
+<li>☑ Altura constante planejada pelo GSD desejado</li>
+<li>☑ Câmera nadir, ISO baixo, foco no infinito</li>
+<li>☑ Margem de 20-30% além da área de interesse</li>
+<li>☑ Cartão com espaço, bateria com folga, GPS com sinal cheio</li>
+<li>☑ (Opcional) GCPs distribuídos e visíveis</li>
+</ul>
+
+<div class="cta">
+<h2 style="margin:0">Voou certinho? A gente processa em até 48h</h2>
+<p style="color:#C9D7EA;margin-top:8px">Ortomosaico, MDT limpo por IA, curvas de nível e 3D em SIRGAS 2000 — primeiro mapa grátis até 150 fotos.</p>
+<a class="btn" href="enviar.html">📤 Enviar meu projeto</a>
+</div>
+</div></article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Qual a sobreposição ideal para fotogrametria com drone?", "acceptedAnswer": {"@type": "Answer", "text": "75% frontal e 65% lateral como regra geral; em áreas com vegetação densa ou relevo forte, suba para 80/70."}},
+    {"@type": "Question", "name": "Qual a melhor altura de voo para mapeamento?", "acceptedAnswer": {"@type": "Answer", "text": "Depende do GSD desejado: 60-80 m dá 2-3 cm/px (plantas urbanas); 100-120 m dá 3-5 cm/px (topografia rural, fazendas). Voe a altura constante."}},
+    {"@type": "Question", "name": "Preciso de pontos de controle (GCP) no voo?", "acceptedAnswer": {"@type": "Answer", "text": "Para precisão topográfica documentada (centimétrica), sim: 4-6 alvos medidos com RTK, espalhados pela área. Sem GCPs a precisão absoluta é a do GPS do drone (métrica), mas medidas relativas continuam boas."}}
+  ]
+}
+</script>
+<footer><div class="wrap"><strong>AeroClick</strong> · CNPJ 30.802.792/0001-89 · Salvador/BA<br><a href="termos.html" style="color:#C9D7EA">Termos de Serviço</a> · <a href="index.html" style="color:#C9D7EA">processamento.tech</a></div></footer>
+</body>
+</html>
