@@ -82,8 +82,8 @@ footer{text-align:center;color:var(--ink-soft);font-size:.82rem;padding:20px 0 4
     <div><label>Você é...</label><select id="plano"><option>Cliente avulso</option><option>Assinante START</option><option>Assinante PRO</option><option>Quero assinar um plano</option></select></div>
   </div>
   <div class="row">
+    <div><label>Para que você vai usar o mapeamento? *</label><select id="finalidade" required><option>Topografia / terraplenagem / projeto</option><option>Mineração / volume de pilhas</option><option>Acompanhamento de obra</option><option>Agro / lavoura</option><option>Documentação / limites de área</option><option>Ambiental / licenciamento</option><option>Outro (explico no WhatsApp)</option></select></div>
     <div><label>Como nos conheceu?</label><select id="origem"><option>Google</option><option>Instagram</option><option>YouTube</option><option>Indicação de amigo/colega</option><option>Grupo de pilotos</option><option>Outro</option></select></div>
-    <div></div>
   </div>
 
   <div class="aviso">📦 Limite de <strong>500 fotos por envio</strong>. Projeto maior? Envie mesmo assim e explique no WhatsApp — processamos áreas grandes sob demanda.</div>
@@ -123,6 +123,7 @@ document.getElementById("f").addEventListener("submit", function(e){
     "🚁 Drone: " + v("drone") + " | Altura: " + v("altura") + " m | Overlap: " + v("overlap") + "\n" +
     "📍 GCP: " + v("gcp") + " | CRS: " + v("crs") + "\n" +
     "📦 Produtos: " + prods + "\n" +
+    "🎯 Finalidade: " + v("finalidade") + "\n" +
     "💳 Tipo: " + plano + "\n" +
     "📣 Origem: " + v("origem") + "\n" +
     "✅ Aceitou os Termos de Serviço (v1.0) em " + new Date().toLocaleString("pt-BR");
