@@ -9,6 +9,8 @@ volumes de pilhas — tudo em SIRGAS 2000 / UTM, entregue por e-mail em até
 48h úteis.
 
 - Enviar projeto: https://processamento.tech/enviar.html
+- **Pontaria GCP (grátis)** — editor de pontos de controle no navegador: https://processamento.tech/pontaria.html
+- Guias técnicos: [quanto custa processar](https://processamento.tech/quanto-custa-processamento-drone.html) · [curvas de nível com drone](https://processamento.tech/curvas-de-nivel-drone.html) · [WebODM vs Metashape vs Pix4D](https://processamento.tech/webodm-metashape-pix4d.html) · [quantos GCPs preciso](https://processamento.tech/quantos-gcp-drone.html) · [MDT vs MDS](https://processamento.tech/mdt-mds.html)
 - Acompanhar status: https://processamento.tech/status.html
 - Termos de serviço: https://processamento.tech/termos.html
 

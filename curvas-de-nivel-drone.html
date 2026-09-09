@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curvas de Nível com Drone: Como Gerar (e os 4 Erros que Arruínam) | MAP.IA</title>
+<meta name="description" content="Guia de quem gera curvas de nível de drone todos os dias: o fluxo correto (MDT filtrado por IA → suavização → equidistância certa), os 4 erros que destroem o produto e como receber DXF/SHP prontos para CAD por R$ 0,36/foto.">
+<meta name="keywords" content="curvas de nível drone, como gerar curvas de nível, curvas de nível dxf, equidistância curvas de nível, mdt drone curvas, topografia com drone">
+<link rel="canonical" href="https://processamento.tech/curvas-de-nivel-drone.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Curvas de nível com drone: como gerar (e os 4 erros que arruínam)">
+<meta property="og:description" content="O fluxo correto: MDT filtrado por IA, modelo suavizado e equidistância compatível com a precisão.">
+<meta property="og:url" content="https://processamento.tech/curvas-de-nivel-drone.html">
+<meta property="og:image" content="https://processamento.tech/vitrine-ilhabela.jpg">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1830'/%3E%3Cpath d='M14 44c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Cpath d='M14 34c6-2 10-10 18-10s12 8 18 10' stroke='%2335B6FF' stroke-width='2' opacity='.55' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='20' r='5' fill='%2335B6FF'/%3E%3C/svg%3E">
+<style>
+:root{--navy-950:#060F20;--navy-900:#0A1830;--navy-700:#16305C;--sky:#35B6FF;--sky-dark:#1E8FD0;--wa:#25D366;--ink:#16202E;--ink-soft:#4A5A70;--bg:#F5F8FC;--card:#FFFFFF;--line:#E1E9F2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Segoe UI",system-ui,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+a{color:var(--sky-dark);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header{background:var(--navy-900);padding:14px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;max-width:860px}
+header a{color:#fff;font-weight:800;font-size:1.2rem}
+header a span{color:var(--sky)}
+header .volta{font-weight:400;font-size:.9rem;color:#C9D7EA}
+.hero{background:linear-gradient(160deg,var(--navy-950),var(--navy-700));color:#fff;padding:48px 0}
+.hero h1{font-size:clamp(1.4rem,3.4vw,2.1rem);font-weight:800;line-height:1.25}
+.hero p{margin-top:12px;color:#C9D7EA}
+article{padding:40px 0 20px}
+article h2{font-size:1.35rem;font-weight:800;margin:30px 0 10px}
+article h3{font-size:1.05rem;font-weight:700;margin:18px 0 6px}
+article p{margin-bottom:14px;color:#2A3648}
+article ul,article ol{margin:0 0 14px 22px;color:#2A3648}
+article li{margin-bottom:6px}
+.destaque{background:#fff;border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0;color:var(--ink-soft)}
+.cta{background:var(--navy-900);color:#fff;border-radius:16px;padding:30px;text-align:center;margin:36px 0}
+.cta .btn{display:inline-block;background:var(--wa);color:#fff;font-weight:700;padding:14px 28px;border-radius:10px;margin-top:12px}
+footer{background:var(--navy-950);color:#8FA6C6;padding:34px 0;font-size:.85rem;text-align:center}
+footer strong{color:#fff}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:.94rem}
+th{background:var(--navy-900);color:#fff}
+.veja{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:24px 0;font-size:.93rem}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="index.html">MAP<span>.IA</span></a><a class="volta" href="index.html">← página inicial</a></div></header>
+
+<div class="hero"><div class="wrap">
+<h1>Curvas de nível com drone: como gerar direito — e os 4 erros que arruínam o produto</h1>
+<p>Escrito por quem entrega curvas em DXF toda semana. O fluxo técnico correto, as escolhas que separam um produto profissional de um "espaguete de linhas", e os limites honestos.</p>
+</div></div>
+
+<article><div class="wrap">
+<h2>O fluxo correto, do voo ao DXF</h2>
+<ol>
+<li><strong>Voo bem planejado</strong> — sobreposição 75/65 e GSD compatível com a escala (<a href="voo-fotogrametria.html">checklist de voo aqui</a>);</li>
+<li><strong>Nuvem de pontos densa</strong> por fotogrametria;</li>
+<li><strong>Classificação do terreno</strong> — algoritmos (SMRF/IA) separam solo de vegetação, construções e veículos;</li>
+<li><strong>MDT</strong> interpolado só com pontos de solo (<a href="mdt-mds.html">MDT vs MDS explicado</a>);</li>
+<li><strong>Suavização do MODELO</strong> — filtro no raster antes de extrair qualquer curva;</li>
+<li><strong>Extração com equidistância certa</strong> + suavização da geometria das linhas;</li>
+<li><strong>Exportação</strong> em DXF (CAD) e SHP (QGIS/ArcGIS), com a cota gravada em cada curva, em SIRGAS 2000.</li>
+</ol>
+
+<h2>Os 4 erros que a gente vê todo mês</h2>
+
+<h3>Erro 1 — Extrair curvas do modelo de superfície (MDS)</h3>
+<p>Cada árvore vira uma "colina", cada telhado vira um "morro". Se as curvas formam ilhas circulares onde a ortofoto mostra árvores, o produto está errado para uso topográfico. Curva de nível se extrai do <strong>MDT filtrado</strong> — sempre.</p>
+
+<h3>Erro 2 — Equidistância menor que a precisão do levantamento</h3>
+<p>Este é o erro mais sutil e o mais comum. Se o levantamento tem precisão vertical de ~10 cm, gerar curvas de 25 em 25 cm significa desenhar <strong>ruído</strong>, não relevo: milhares de linhas serrilhadas que não representam nada. Regra de ouro: a equidistância deve ser <strong>2 a 3 vezes maior</strong> que o erro vertical do modelo.</p>
+<table>
+<tr><th>Levantamento</th><th>Equidistância recomendada</th></tr>
+<tr><td>Drone sem GCP (voo ~100 m)</td><td>1,0 m (padrão de mercado)</td></tr>
+<tr><td>Drone com GCP / RTK bem executado</td><td>0,5 m possível, 1,0 m confortável</td></tr>
+<tr><td>Projeto executivo fino</td><td>0,25–0,5 m só com apoio de campo rigoroso</td></tr>
+</table>
+
+<h3>Erro 3 — Não suavizar o modelo antes de extrair</h3>
+<p>Mesmo um MDT bem classificado tem textura de ruído (grama, sulcos, micro-relevo do pixel). Extrair curvas direto dele gera o famoso serrilhado. O correto é aplicar <strong>filtragem no raster</strong> (mediana + gaussiana) antes da extração, e depois suavizar a geometria das linhas — nessa ordem. Só suavizar a linha no CAD "maquia" o ruído; suavizar o modelo o elimina.</p>
+
+<h3>Erro 4 — Ignorar a diferença entre cota elipsoidal e altitude</h3>
+<p>O GPS do drone mede altura sobre o elipsoide; a topografia trabalha com altitude ortométrica (nível do mar). No Brasil a diferença chega a dezenas de metros. Sem correção do geoide (ou sem <a href="quantos-gcp-drone.html">pontos de controle</a>), suas cotas podem estar sistematicamente deslocadas — os desníveis valem, os valores absolutos não.</p>
+
+<div class="destaque">No MAP.IA, todo projeto sai com DOIS conjuntos de curvas (do MDT e do MDS), modelo suavizado antes da extração, equidistância definida pela precisão real do voo e correção de geoide (EGM96) quando não há GCP. É o pacote que um projetista consegue usar sem retrabalho.</div>
+
+<h2>Quanto custa ter isso pronto</h2>
+<p>R$ 0,36 por foto no beta (mínimo R$ 45): um voo de 300 fotos custa ~R$ 108 e volta em até 48h com ortomosaico + MDT/MDS + curvas suavizadas em DXF/SHP + nuvem de pontos + relatório. <a href="quanto-custa-processamento-drone.html">Comparação completa de custos aqui</a>.</p>
+
+<div class="cta">
+<h2 style="margin:0">Precisa de curvas limpas do seu voo?</h2>
+<p style="color:#C9D7EA;margin-top:8px">Envie as fotos e receba DXF/SHP prontos para o projeto. Primeiro mapa grátis até 150 fotos.</p>
+<a class="btn" href="enviar.html">📤 Enviar meu projeto</a>
+</div>
+
+<div class="veja"><strong>Leia também:</strong> <a href="mdt-mds.html">MDT vs MDS: qual a diferença?</a> · <a href="quantos-gcp-drone.html">Quantos GCPs preciso?</a> · <a href="voo-fotogrametria.html">Checklist do voo de mapeamento</a></div>
+</div></article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Qual equidistância usar nas curvas de nível de drone?", "acceptedAnswer": {"@type": "Answer", "text": "A equidistância deve ser 2 a 3 vezes maior que o erro vertical do levantamento. Para voo de drone sem pontos de controle, 1,0 m é o padrão profissional; 0,5 m só com GCP/RTK bem executado. Equidistância menor que a precisão desenha ruído, não relevo."}},
+    {"@type": "Question", "name": "Por que minhas curvas de nível ficam serrilhadas?", "acceptedAnswer": {"@type": "Answer", "text": "Porque foram extraídas de um modelo não suavizado. O fluxo correto filtra o raster do MDT (mediana + gaussiana) ANTES de extrair as curvas e depois suaviza a geometria das linhas. Suavizar só no CAD maquia o problema."}},
+    {"@type": "Question", "name": "Posso gerar curvas de nível de drone sem pontos de controle?", "acceptedAnswer": {"@type": "Answer", "text": "Pode, com ressalvas: os desníveis (formas do relevo) ficam bons, mas as cotas absolutas dependem do GPS do drone e da correção de geoide. Para amarração precisa ao nível do mar ou a uma referência legal, use pontos de controle."}}
+  ]
+}
+</script>
+<footer><div class="wrap"><strong>AeroClick</strong> · CNPJ 30.802.792/0001-89 · Salvador/BA<br><a href="termos.html" style="color:#C9D7EA">Termos de Serviço</a> · <a href="index.html" style="color:#C9D7EA">processamento.tech</a></div></footer>
+</body>
+</html>
