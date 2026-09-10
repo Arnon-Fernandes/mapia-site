@@ -35,41 +35,46 @@ button:hover{background:var(--wa-dark)}
 button:disabled{background:#B9C6D4;cursor:not-allowed}
 footer{text-align:center;color:var(--ink-soft);font-size:.82rem;padding:20px 0 40px}
 </style>
+<link rel="stylesheet" href="mapia-arnon.css">
 </head>
-<body>
-<header><div class="wrap"><a href="index.html">MAP<span>.IA</span></a><a class="volta" href="index.html">← voltar</a></div></header>
+<body class="mapia-form">
+<header><div class="wrap"><a href="index.html">MAP<span>.IA</span><small class="brand-signature">Uma solução ARNON</small></a><a class="volta" href="index.html">← voltar</a></div></header>
 <div class="wrap"><main>
-<h1>📤 Enviar meu projeto</h1>
-<p class="sub">Preencha os dados do seu voo. Ao enviar, abrimos uma conversa no WhatsApp já com tudo organizado — você só confirma. Orçamento em minutos, entrega em até 48 h úteis.</p>
+<h1>Vamos preparar seu projeto.</h1>
+<p class="sub">Informe seu contato, o link das fotos e o que precisa receber. Vamos organizar uma mensagem para você conferir e enviar no WhatsApp. O cadastro do projeto e o orçamento são confirmados no atendimento.</p>
 
 <form id="f">
+  <h2 class="section-label">01 · Seu contato</h2>
   <div class="row">
-    <div><label>Nome / Empresa *</label><input type="text" id="nome" required></div>
-    <div><label>WhatsApp para contato *</label><input type="text" id="zap" placeholder="(DD) 9 XXXX-XXXX" required></div>
+    <div><label for="nome">Nome / Empresa *</label><input type="text" id="nome" autocomplete="name" maxlength="160" required></div>
+    <div><label for="zap">WhatsApp para contato *</label><input type="text" id="zap" inputmode="tel" autocomplete="tel" maxlength="25" placeholder="(DD) 9 XXXX-XXXX" required></div>
   </div>
   <div class="row">
-    <div><label>E-mail</label><input type="email" id="email"></div>
-    <div><label>CNPJ/CPF <small>(para NF)</small></label><input type="text" id="doc"></div>
+    <div><label for="email">E-mail <small>(opcional nesta etapa)</small></label><input type="email" id="email" autocomplete="email" maxlength="254"></div>
+    <div><label for="doc">CNPJ/CPF <small>(opcional, para nota fiscal)</small></label><input type="text" id="doc" inputmode="numeric" maxlength="20"></div>
   </div>
 
-  <label>Link das fotos * <small>— preferimos <b>Google Drive</b>, <b>Dropbox</b> ou <b>WeTransfer</b>, compartilhado como "qualquer pessoa com o link pode ver". OneDrive também funciona (pode levar um pouco mais para baixarmos).</small></label>
+  <h2 class="section-label">02 · Fotos e finalidade</h2>
+  <label for="link">Link das fotos * <small>— Google Drive, Dropbox, WeTransfer ou OneDrive. Compartilhe somente a pasta deste projeto e confira a permissão de leitura. Se o material for restrito, combine o acesso pelo atendimento; não envie senhas.</small></label>
   <input type="url" id="link" placeholder="https://drive.google.com/..." required>
 
   <div class="row">
-    <div><label>Nº aproximado de fotos *</label><input type="number" id="fotos" min="1" required></div>
-    <div><label>Área aproximada (ha)</label><input type="number" id="area" step="0.1"></div>
+    <div><label for="fotos">Nº aproximado de fotos *</label><input type="number" id="fotos" min="1" step="1" required></div>
+    <div><label for="area">Área aproximada (ha)</label><input type="number" id="area" min="0" step="0.1"></div>
+  </div>
+  <details class="optional"><summary>Detalhes técnicos do voo <small>(se souber)</small></summary>
+  <div class="row">
+    <div><label for="drone">Drone</label><input type="text" id="drone" maxlength="100" placeholder="ex.: DJI Mini 4 Pro"></div>
+    <div><label for="altura">Altura de voo (m)</label><input type="number" id="altura" min="0" step="0.1"></div>
   </div>
   <div class="row">
-    <div><label>Drone</label><input type="text" id="drone" placeholder="ex.: DJI Mini 4 Pro"></div>
-    <div><label>Altura de voo (m)</label><input type="number" id="altura"></div>
+    <div><label for="overlap">Overlap frontal/lateral <small>(recomendado 75/65 ou superior)</small></label><input type="text" id="overlap" maxlength="40" placeholder="ex.: 80/70"></div>
+    <div><label for="gcp">Tem pontos de controle (GCP)?</label><select id="gcp"><option value="">Selecione, se souber</option><option>Não</option><option>Sim (envio o arquivo no WhatsApp)</option></select>
+    <small style="display:block;margin-top:4px">Tem GCP? Marque os alvos com a nossa <a href="pontaria.html" target="_blank" rel="noopener"><b>Pontaria grátis</b></a> e envie o gcp_list.txt junto.</small></div>
   </div>
-  <div class="row">
-    <div><label>Overlap frontal/lateral <small>(mín. recomendado 75/65)</small></label><input type="text" id="overlap" placeholder="ex.: 80/70"></div>
-    <div><label>Tem pontos de controle (GCP)?</label><select id="gcp"><option>Não</option><option>Sim (envio o arquivo no WhatsApp)</option></select>
-    <small style="display:block;margin-top:4px">Tem GCP? Marque os alvos com a nossa <a href="pontaria.html" target="_blank"><b>Pontaria grátis</b></a> e envie o gcp_list.txt junto.</small></div>
-  </div>
+  </details>
 
-  <label>Produtos desejados *</label>
+  <fieldset><legend>Produtos desejados * <small>(selecione ao menos um)</small></legend>
   <div class="prods">
     <label class="chk"><input type="checkbox" class="prod" value="Ortomosaico" checked>Ortomosaico</label>
     <label class="chk"><input type="checkbox" class="prod" value="MDT/MDS + curvas" checked>MDT/MDS + curvas de nível</label>
@@ -77,27 +82,30 @@ footer{text-align:center;color:var(--ink-soft);font-size:.82rem;padding:20px 0 4
     <label class="chk"><input type="checkbox" class="prod" value="Modelo 3D">Modelo 3D texturizado</label>
     <label class="chk"><input type="checkbox" class="prod" value="Calculo de volumes">Cálculo de volumes</label>
   </div>
+  </fieldset>
 
   <div class="row">
-    <div><label>Sistema de coordenadas</label><select id="crs"><option>SIRGAS 2000 / UTM (padrão)</option><option>Outro (explico no WhatsApp)</option></select></div>
-    <div><label>Você é...</label><select id="plano"><option>Cliente avulso</option><option>Assinante START</option><option>Assinante PRO</option><option>Quero assinar um plano</option></select></div>
+    <div><label for="crs">Sistema de coordenadas</label><select id="crs"><option>SIRGAS 2000 / UTM (padrão)</option><option>Outro (explico no WhatsApp)</option></select></div>
+    <div><label for="plano">Forma de contratação</label><select id="plano"><option>Cliente avulso</option><option>Assinante START</option><option>Assinante PRO</option><option>Quero assinar um plano</option></select></div>
   </div>
   <div class="row">
-    <div><label>Para que você vai usar o mapeamento? *</label><select id="finalidade" required><option>Topografia / terraplenagem / projeto</option><option>Mineração / volume de pilhas</option><option>Acompanhamento de obra</option><option>Agro / lavoura</option><option>Documentação / limites de área</option><option>Ambiental / licenciamento</option><option>Outro (explico no WhatsApp)</option></select></div>
-    <div><label>Como nos conheceu?</label><select id="origem"><option>Google</option><option>Instagram</option><option>YouTube</option><option>Indicação de amigo/colega</option><option>Grupo de pilotos</option><option>Outro</option></select></div>
+    <div><label for="finalidade">Para que você vai usar o mapeamento? *</label><select id="finalidade" required><option value="">Selecione a finalidade</option><option>Topografia / terraplenagem / projeto</option><option>Mineração / volume de pilhas</option><option>Acompanhamento de obra</option><option>Agro / lavoura</option><option>Documentação / limites de área</option><option>Ambiental / licenciamento</option><option>Outro (explico no WhatsApp)</option></select></div>
+    <div><label for="origem">Como nos conheceu? <small>(opcional)</small></label><select id="origem"><option value="">Prefiro não informar</option><option>Google</option><option>Instagram</option><option>YouTube</option><option>Indicação de amigo/colega</option><option>Grupo de pilotos</option><option>Outro</option></select></div>
   </div>
 
-  <div class="aviso">📦 Limite de <strong>500 fotos por envio</strong>. Projeto maior? Envie mesmo assim e explique no WhatsApp — processamos áreas grandes sob demanda.</div>
+  <div class="aviso">Beta: até <strong>500 fotos por projeto</strong>. Acima disso, confirmamos escopo, valor e prazo no atendimento. Projetos pagos do beta: até 48 h úteis após pagamento e arquivos completos. O primeiro mapa grátis (até 150 fotos) entra em janela ociosa, sem prazo garantido.</div>
 
   <div class="termos-box">
-    <label class="chk" style="margin:0"><input type="checkbox" id="aceite">
-      <span>Li e aceito os <a href="termos.html" target="_blank">Termos de Serviço</a> — em especial: a qualidade do produto depende da qualidade do voo; brutos ficam 30 dias e produtos 90 dias; prazo conta após pagamento + arquivos completos. *</span></label>
+    <label class="chk" style="margin:0"><input type="checkbox" id="aceite" required>
+      <span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Serviço</a> — em especial: a qualidade do produto depende da qualidade do voo; brutos ficam 30 dias e produtos 90 dias; prazo conta após pagamento + arquivos completos. *</span></label>
   </div>
 
-  <button type="submit" id="btn" disabled>💬 Enviar pelo WhatsApp</button>
+  <button type="submit" id="btn" disabled>Continuar no WhatsApp</button>
+  <p class="notice">Nada é enviado por esta página: você confere a mensagem e confirma o envio no WhatsApp. O envio do formulário não inicia uma cobrança.</p>
+  <div class="handoff" id="handoff" role="status" hidden>Mensagem preparada, ainda não enviada. Se o WhatsApp não abriu, <a id="abrir-whatsapp" target="_blank" rel="noopener noreferrer">abra a conversa aqui</a> e confirme o envio.</div>
 </form>
 </main></div>
-<footer><strong>AeroClick</strong> · CNPJ 30.802.792/0001-89 · Salvador/BA<br><a href="termos.html">Termos de Serviço</a> · atendimento seg–sex 8h–18h</footer>
+<footer><strong>MAP.IA · ARNON Geotecnologias e Sistemas</strong> · CNPJ 30.802.792/0001-89 · Salvador/BA<br><a href="termos.html">Termos de Serviço</a> · atendimento seg–sex 8h–18h</footer>
 
 <script>
 var WHATSAPP = "5575992224009";
@@ -106,14 +114,30 @@ aceite.addEventListener("change", function(){ btn.disabled = !aceite.checked; })
 
 /* pre-seleciona o plano vindo de index.html?plano=START|PRO|AVULSO */
 var q = new URLSearchParams(location.search).get("plano");
+if (["START", "PRO", "AVULSO"].indexOf(q) === -1) q = null;
 if (q === "START") document.getElementById("plano").value = "Quero assinar um plano";
 if (q === "PRO") document.getElementById("plano").value = "Quero assinar um plano";
 
-function v(id){ return (document.getElementById(id).value || "-").trim(); }
+function v(id){ return document.getElementById(id).value.trim() || "Não informado"; }
+var form = document.getElementById("f");
+form.addEventListener("invalid", function(e){ var details = e.target.closest("details"); if (details) details.open = true; }, true);
+var products = Array.from(document.querySelectorAll(".prod"));
+function validateProducts(){
+  products[0].setCustomValidity(products.some(function(c){ return c.checked; }) ? "" : "Selecione ao menos um produto.");
+}
+products.forEach(function(c){ c.addEventListener("change", validateProducts); });
+document.getElementById("link").addEventListener("input", function(){ this.setCustomValidity(""); });
 document.getElementById("f").addEventListener("submit", function(e){
   e.preventDefault();
-  var prods = Array.from(document.querySelectorAll(".prod:checked")).map(function(c){ return c.value; }).join(", ") || "-";
-  var plano = v("plano") + (q ? " (veio do plano " + q + ")" : "");
+  validateProducts();
+  var linkField = document.getElementById("link");
+  try {
+    var photoUrl = new URL(linkField.value);
+    linkField.setCustomValidity((photoUrl.protocol === "https:" || photoUrl.protocol === "http:") && !photoUrl.username && !photoUrl.password ? "" : "Use um link HTTP ou HTTPS sem senha no endereço.");
+  } catch (err) { linkField.setCustomValidity("Informe um link completo para as fotos."); }
+  if (!aceite.checked || !form.reportValidity()) return;
+  var prods = products.filter(function(c){ return c.checked; }).map(function(c){ return c.value; }).join(", ");
+  var plano = v("plano") + (q && v("plano") === "Quero assinar um plano" ? " (interesse em " + q + ")" : "");
   var msg = "*NOVO PROJETO — via processamento.tech*\n" +
     "👤 Nome/Empresa: " + v("nome") + "\n" +
     "📱 WhatsApp: " + v("zap") + "\n" +
@@ -128,7 +152,10 @@ document.getElementById("f").addEventListener("submit", function(e){
     "💳 Tipo: " + plano + "\n" +
     "📣 Origem: " + v("origem") + "\n" +
     "✅ Aceitou os Termos de Serviço (v1.0) em " + new Date().toLocaleString("pt-BR");
-  window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg), "_blank");
+  var destination = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+  document.getElementById("abrir-whatsapp").href = destination;
+  document.getElementById("handoff").hidden = false;
+  window.open(destination, "_blank", "noopener,noreferrer");
 });
 </script>
 </body>
