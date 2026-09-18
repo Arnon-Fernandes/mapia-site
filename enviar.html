@@ -36,6 +36,18 @@ button:disabled{background:#B9C6D4;cursor:not-allowed}
 footer{text-align:center;color:var(--ink-soft);font-size:.82rem;padding:20px 0 40px}
 </style>
 <link rel="stylesheet" href="mapia-arnon.css">
+<!-- Google tag (gtag.js) - Google Ads AW-18330885204 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18330885204"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18330885204');
+document.addEventListener('click', function(e){
+  var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"], a[href*="whatsapp.com"]') : null;
+  if (a && window.gtag) { gtag('event', 'conversion', {'send_to': 'AW-18330885204/pIf7CIqQgvwcENS47KRE'}); }
+}, true);
+</script>
 </head>
 <body class="mapia-form">
 <header><div class="wrap"><a href="index.html">MAP<span>.IA</span><small class="brand-signature">Uma solução ARNON</small></a><a class="volta" href="index.html">← voltar</a></div></header>
